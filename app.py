@@ -29,17 +29,22 @@ while game_is_on:
     time.sleep(0.1)
     snake.move()
 
-    #Detect the dot
+    # Detect the dot
     if snake.head.distance((food)) < 15:
         food.refresh()
+        snake.extend()
         score_board.increase_score()
 
+    # Detect hit wall
+    if snake.head.xcor() > 280.0 or snake.head.xcor() < -280.0 or snake.head.ycor() > 280.0 or snake.head.ycor() < -280.0:
+        score_board.game_over()
+        game_is_on = False
 
+    
+    for segment in snake.segments[1:]:
+        if snake.head.distance(segment) < 10:
+            game_is_on = False
+            ScoreBoard.game_over()
 
 
 screen.exitonclick()
-
-    
-        
-        
-
